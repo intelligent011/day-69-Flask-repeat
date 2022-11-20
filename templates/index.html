@@ -1,0 +1,57 @@
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://cache.bmwusa.com/cosy.arox?pov=walkaround&brand=WBBM&vehicle=235D&client=byoc&paint=P0475&fabric=FLZFK&sa=S01CE%2CS01UY%2CS02TB%2CS0302%2CS0316%2CS0319%2CS0322%2CS0337%2CS033B%2CS03AG%2CS03DZ%2CS03M2%2CS03MF%2CS0403%2CS0423%2CS0453%2CS0456%2CS0465%2CS0494%2CS04KH%2CS04T8%2CS04UR%2CS0508%2CS0534%2CS0552%2CS05AC%2CS05AS%2CS0676%2CS06AC%2CS06AK%2CS06C4%2CS06NS%2CS06U3%2CS0704%2CS0710%2CS0715%2CS0754%2CS0760%2CS0775%2CS07M9&X=441&Y=2929&W=4999&H=4999&WIDTH=1280&HEIGHT=768&sharp=100&resp=png&BKGND=TRANSPARENT&quality=60&angle=90')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>BMW Blog</h1>
+            <span class="subheading">A collection of M-powered content.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% for post in all_posts %}
+        <div class="post-preview">
+          <a href="{{ url_for('show_post', post_id=post.id) }}">
+            <h2 class="post-title">
+              {{post.title}}
+            </h2>
+            <h3 class="post-subtitle">
+              {{post.subtitle}}
+            </h3>
+          </a>
+          <p class="post-meta">Posted by
+            <a href="#">{{post.author.name}}</a>
+            on {{post.date}}
+
+            {% if current_user.id == 1: %}
+            <a href="{{url_for('delete_post', post_id=post.id) }}">✘</a>
+            {% endif %}
+          </p>
+        </div>
+        <hr>
+        {% endfor %}
+
+
+        <!-- New Post -->
+        {% if current_user.id == 1: %}
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="{{url_for('add_new_post')}}">Create New Post</a>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+  <hr>
+
+{% include "footer.html" %}
